@@ -1,6 +1,6 @@
 import { ADDRESS_ERROR } from "./constants/errors.constant";
 import { DEFAULT_COUNTRY, RESULT_LIMIT } from "./constants/tomtom.constant";
-import { getPlaceAutocomplete } from "./maps-api";
+import { getPlaceAutocomplete } from "./services/maps-api";
 import { IAutoCompleteDetails } from "./types/tomtom.types";
 
 export async function getAutoCompleteDetails(

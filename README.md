@@ -17,11 +17,12 @@ Resources:
 ==========
 
 Place Search Documentation: https://developer.tomtom.com/search-api/documentation/search-service/search-service
-API Key: Oyb0npJAVdRwDauqpFez7zKCy2euUYql
 
 Install:
 ========
 1. `npm install`
+
+Note: `.env` file was committed to source control for easy setup. Would not do this in production.
 
 Test:
 =====

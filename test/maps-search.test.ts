@@ -6,7 +6,7 @@ import {
 	DEFAULT_COUNTRY,
 	RESULT_LIMIT,
 } from "../src/constants/tomtom.constant";
-import { getPlaceAutocomplete } from "../src/maps-api";
+import { getPlaceAutocomplete, TomTomAPIError } from "../src/services/maps-api";
 
 config();
 
@@ -44,29 +44,38 @@ describe("Tomtom Places E2E Tests", () => {
 			});
 		});
 
-		it("should handle empty address", async () => {
+		it("should throw ADDRESS_ERROR when address is empty", async () => {
 			expect(getAutoCompleteDetails("")).rejects.toThrow(ADDRESS_ERROR);
 		});
 	});
 
 	describe("getPlaceAutocomplete", () => {
-		it("handles no results", async () => {
+		it("handles no results from the API service", async () => {
 			const res = await getPlaceAutocomplete("jkhgjerghjreg", {
 				key: process.env.TOMTOM_API_KEY,
 			});
 			expect(res).toStrictEqual([]);
 		});
 
-		it("handles error", async () => {
+		it("handles API service error", async () => {
 			expect(
 				getPlaceAutocomplete("", { key: process.env.TOMTOM_API_KEY })
 			).rejects.toThrow();
 		});
 
-		it("should handle empty env var", async () => {
+		it("should throw API_KEY_ERROR when API Key is empty", async () => {
 			expect(
 				getPlaceAutocomplete("Charlotte Street", { key: "" })
 			).rejects.toThrow(API_KEY_ERROR);
+		});
+
+		it("should throw TomTomAPIError when bad param is passed in", async () => {
+			expect(
+				getPlaceAutocomplete("Charlotte Street", {
+					key: process.env.TOMTOM_API_KEY,
+					language: "en-ES", // unsupported language type will respond with error
+				})
+			).rejects.toThrow(TomTomAPIError);
 		});
 	});
 });

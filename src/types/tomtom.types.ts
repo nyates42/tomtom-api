@@ -122,7 +122,7 @@ export interface IFuzzySearchParams {
 	countrySet?: string;
 	lat?: number;
 	lon?: number;
-	radius ?: number;
+	radius?: number;
 	topLeft?: string;
 	btmRight?: string;
 	geobias?: string;
@@ -144,4 +144,16 @@ export interface IFuzzySearchParams {
 	mapcodes?: string;
 	relatedPois?: string;
 	entityTypeSet?: string;
+}
+
+export interface ITomTomError {
+	errorText: string;
+	detailedError: IDetailedError;
+	httpStatusCode: string;
+}
+
+interface IDetailedError {
+	code: string;
+	message: string;
+	target: string;
 }
